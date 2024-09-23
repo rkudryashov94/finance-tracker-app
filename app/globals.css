@@ -4,6 +4,20 @@
 
 @layer base {
   body {
-    @apply text-white bg-slate-900
+    @apply text-white bg-slate-900;
+  }
+
+  button {
+    @apply hover:scale-110 transition-all duration-100;
+  }
+}
+
+@layer utilities {
+  .btn {
+    @apply px-4 py-2 text-sm capitalize rounded-xl;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 border-red-600 text-white;
   }
 }
