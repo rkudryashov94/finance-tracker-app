@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply text-white bg-slate-900;
+    @apply text-white bg-slate-900 relative;
   }
 
   button {
@@ -18,11 +18,11 @@
   }
 
   .btn-primary {
-    @apply border bg-slate-700 border-slate-700 text-lime-400
+    @apply border bg-slate-700 border-slate-700 text-lime-400;
   }
 
   .btn-primary-outline {
-    @apply border border-lime-400 text-lime-400
+    @apply border border-lime-400 text-lime-400;
   }
 
   .btn-danger {
