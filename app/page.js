@@ -3,40 +3,45 @@
 import { currencyFormatter } from "@/lib/utils";
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 const DUMMY_DATA = [
   {
     id: 1,
     title: "Entertainment",
     color: "yellow",
-    amount: 500,
+    total: 500,
   },
 
   {
     id: 2,
     title: "Utilities",
     color: "blue",
-    amount: 400,
+    total: 400,
   },
 
   {
     id: 3,
     title: "Fuel",
     color: "red",
-    amount: 300,
+    total: 300,
   },
 
   {
     id: 4,
     title: "Movies",
     color: "green",
-    amount: 100,
+    total: 100,
   },
 
   {
     id: 5,
     title: "Holidays",
-    color: "brown",
-    amount: 2000,
+    color: "purple",
+    total: 2000,
   },
 ];
 
@@ -64,10 +69,31 @@ export default function Home() {
               <ExpenseCategoryItem
                 color={expense.color}
                 title={expense.title}
-                amount={expense.amount}
+                total={expense.total}
               />
             );
           })}
+        </div>
+      </section>
+
+      {/* Chart section */}
+      <section className="py-6">
+        <h3 className="text-2xl">Stats</h3>
+        <div className="w-1/2 mx-auto">
+          <Doughnut
+            data={{
+              labels: DUMMY_DATA.map((expense) => expense.title),
+              datasets: [
+                {
+                  label: "Expenses",
+                  data: DUMMY_DATA.map((expense) => expense.total),
+                  backgroundColor: DUMMY_DATA.map((expense) => expense.color),
+                  borderColor: ["#18181b"],
+                  borderWidth: 5,
+                },
+              ],
+            }}
+          />
         </div>
       </section>
     </main>

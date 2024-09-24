@@ -1,6 +1,6 @@
 import { currencyFormatter } from "@/lib/utils";
 
-function ExpsenseCategoryItem({ color, title, amount }) {
+function ExpsenseCategoryItem({ color, title, total }) {
   return (
     <button>
       <div className="flex items-center justify-between px-4 py-4 bg-slate-700 rounded-3xl">
@@ -11,7 +11,7 @@ function ExpsenseCategoryItem({ color, title, amount }) {
           />
           <h4 className="capitalize">{title}</h4>
         </div>
-        <p>{currencyFormatter(amount)}</p>
+        <p>{currencyFormatter(total)}</p>
       </div>
     </button>
   );
