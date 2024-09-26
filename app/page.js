@@ -54,9 +54,40 @@ export default function Home() {
 
 	return (
 		<>
-			{/* Modal */}
+			{/* Add Income Modal */}
 			<Modal show={showAddIncomeModal} onClose={setShowAddIncomeModal}>
-				<h3>I am a Modal Test</h3>
+				<form className="flex flex-col gap-4">
+					<div className="flex flex-col gap-4">
+						<label>Income Amount</label>
+						<input
+							className="px-4 py-2 bg-slate-600 rounded-xl"
+              name="amount"
+							type="number"
+              
+							min={0.01}
+							step={0.01}
+							placeholder="Enter income amount"
+							required
+						/>
+					</div>
+
+          <div className="flex flex-col gap-4">
+          <label>Description</label>
+						<input
+							className="px-4 py-2 bg-slate-600 rounded-xl"
+							name="description"
+              type="text"
+              
+							min={0.01}
+							step={0.01}
+							placeholder="Enter income adescription"
+							required
+						/>
+					</div>
+
+          <button className="btn btn-primary">Add entry</button>
+					
+				</form>
 			</Modal>
 
 			<main className="container max-w-2xl px-6 mx-auto">
