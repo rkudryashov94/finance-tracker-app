@@ -1,36 +1,10 @@
+"use client";
+
 import "./globals.css";
 
 import Nav from "@/components/Navigation";
 
-// Metadata for SEO
-export const metadata = {
-	title: "Finance Tracker App",
-	description:
-		"Easily track your income and expenses, and manage your finances effectively.",
-
-	// Additional SEO metadata
-	keywords: [
-		"expense tracker",
-		"budgeting",
-		"personal finance",
-		"expense management",
-		"financial planning",
-		"track expenses",
-		"save money",
-		"budgeting app",
-		"income and expenses",
-	],
-	author: "Roman Kudryashov",
-	verification: {
-		google: "6IFdr087Tj-ReSBlc3qYvQzTBVlC7Pnc3_-7Ss-_vTw",
-	},
-};
-
-// Viewport configuration for mobile optimization
-export const viewport = {
-	width: "device-width",
-	initialScale: 1.0,
-};
+import FinanceContextProvider from "@/lib/store/finance-context";
 
 export default function RootLayout({ children }) {
 	return (
@@ -63,8 +37,10 @@ export default function RootLayout({ children }) {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</head>
 			<body>
-				<Nav />
-				{children}
+				<FinanceContextProvider>
+					<Nav />
+					{children}
+				</FinanceContextProvider>
 			</body>
 		</html>
 	);
