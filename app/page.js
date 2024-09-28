@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { financeContext } from "@/lib/store/finance-context";
 
 import { currencyFormatter } from "@/lib/utils";
 
@@ -14,45 +15,25 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DUMMY_DATA = [
-	{
-		id: 1,
-		title: "Entertainment",
-		color: "yellow",
-		total: 500,
-	},
-
-	{
-		id: 2,
-		title: "Utilities",
-		color: "blue",
-		total: 400,
-	},
-
-	{
-		id: 3,
-		title: "Fuel",
-		color: "red",
-		total: 300,
-	},
-
-	{
-		id: 4,
-		title: "Movies",
-		color: "green",
-		total: 100,
-	},
-
-	{
-		id: 5,
-		title: "Holidays",
-		color: "purple",
-		total: 2000,
-	},
-];
-
 export default function Home() {
 	const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
+
+  const [balance, setBalance] = useState(0)
+
+	const { expenses, income } = useContext(financeContext);
+
+  useEffect( () => {
+      
+      const incomeTotal = income.reduce((total, i) => {
+        return total + (i.amount)
+      }, 0)
+
+      const expensesTotal = expenses.reduce((total, e) => {
+        return total + (e.total)
+      }, 0)
+      const newBalance = incomeTotal - expensesTotal
+      setBalance(newBalance)
+  }, [expenses, income])
 
 	return (
 		<>
@@ -66,7 +47,7 @@ export default function Home() {
 				{/* Account Balance */}
 				<section className="py-3">
 					<small className="text-gray-400 text-md">My Balance</small>
-					<h2 className="text-4xl font-bold">{currencyFormatter(100000)}</h2>
+					<h2 className="text-4xl font-bold">{currencyFormatter(balance)}</h2>
 				</section>
 
 				{/* Add Expenses & Add Income buttons */}
@@ -86,7 +67,7 @@ export default function Home() {
 				<section className="py-6">
 					<h3 className="text-2xl">My Expenses</h3>
 					<div className="flex flex-col gap-4 mt-6">
-						{DUMMY_DATA.map((expense) => {
+						{expenses.map((expense) => {
 							return (
 								<ExpenseCategoryItem
 									key={expense.id}
@@ -105,12 +86,12 @@ export default function Home() {
 					<div className="w-1/2 mx-auto">
 						<Doughnut
 							data={{
-								labels: DUMMY_DATA.map((expense) => expense.title),
+								labels: expenses.map((expense) => expense.title),
 								datasets: [
 									{
 										label: "Expenses",
-										data: DUMMY_DATA.map((expense) => expense.total),
-										backgroundColor: DUMMY_DATA.map((expense) => expense.color),
+										data: expenses.map((expense) => expense.total),
+										backgroundColor: expenses.map((expense) => expense.color),
 										borderColor: ["#18181b"],
 										borderWidth: 5,
 									},
