@@ -18,24 +18,23 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
 	const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
-  const [showAddExpensesModal, setShowAddExpensesModal] = useState(false)
+	const [showAddExpensesModal, setShowAddExpensesModal] = useState(false);
 
-  const [balance, setBalance] = useState(0)
+	const [balance, setBalance] = useState(0);
 
 	const { expenses, income } = useContext(financeContext);
 
-  useEffect( () => {
-      
-      const incomeTotal = income.reduce((total, i) => {
-        return total + (i.amount)
-      }, 0)
+	useEffect(() => {
+		const incomeTotal = income.reduce((total, i) => {
+			return total + i.amount;
+		}, 0);
 
-      const expensesTotal = expenses.reduce((total, e) => {
-        return total + (e.total)
-      }, 0)
-      const newBalance = incomeTotal - expensesTotal
-      setBalance(newBalance)
-  }, [expenses, income])
+		const expensesTotal = expenses.reduce((total, e) => {
+			return total + e.total;
+		}, 0);
+		const newBalance = incomeTotal - expensesTotal;
+		setBalance(newBalance);
+	}, [expenses, income]);
 
 	return (
 		<>
@@ -45,11 +44,11 @@ export default function Home() {
 				onClose={setShowAddIncomeModal}
 			/>
 
-      {/* Add Expenses Modal */}
-      <AddExpensesModal 
-        show={showAddExpensesModal}
-        onClose={setShowAddExpensesModal}
-      />
+			{/* Add Expenses Modal */}
+			<AddExpensesModal
+				show={showAddExpensesModal}
+				onClose={setShowAddExpensesModal}
+			/>
 
 			<main className="container max-w-2xl px-6 mx-auto">
 				{/* Account Balance */}
@@ -60,7 +59,12 @@ export default function Home() {
 
 				{/* Add Expenses & Add Income buttons */}
 				<section className="flex items-center gap-2 py-3">
-					<button onClick={() => {setShowAddExpensesModal(true)}} className="btn btn-primary">
+					<button
+						onClick={() => {
+							setShowAddExpensesModal(true);
+						}}
+						className="btn btn-primary"
+					>
 						+ Expenses
 					</button>
 					<button
