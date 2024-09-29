@@ -8,6 +8,7 @@ import { currencyFormatter } from "@/lib/utils";
 import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
 
 import AddNewIncomeModal from "@/components/modals/AddIncomeModal";
+import AddExpensesModal from "@/components/modals/AddExpensesModal";
 
 // Chart.js
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -17,6 +18,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
 	const [showAddIncomeModal, setShowAddIncomeModal] = useState(false);
+  const [showAddExpensesModal, setShowAddExpensesModal] = useState(false)
 
   const [balance, setBalance] = useState(0)
 
@@ -43,6 +45,12 @@ export default function Home() {
 				onClose={setShowAddIncomeModal}
 			/>
 
+      {/* Add Expenses Modal */}
+      <AddExpensesModal 
+        show={showAddExpensesModal}
+        onClose={setShowAddExpensesModal}
+      />
+
 			<main className="container max-w-2xl px-6 mx-auto">
 				{/* Account Balance */}
 				<section className="py-3">
@@ -52,7 +60,7 @@ export default function Home() {
 
 				{/* Add Expenses & Add Income buttons */}
 				<section className="flex items-center gap-2 py-3">
-					<button onClick={() => {}} className="btn btn-primary">
+					<button onClick={() => {setShowAddExpensesModal(true)}} className="btn btn-primary">
 						+ Expenses
 					</button>
 					<button
