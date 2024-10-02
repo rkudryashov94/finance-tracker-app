@@ -56,8 +56,9 @@ function AddIncomeModal({ show, onClose }) {
 		<Modal show={show} onClose={onClose}>
 			<form className="input-group" onSubmit={addIncomeHandler}>
 				<div className="input-group">
-					<label>Income Amount</label>
+					<label htmlFor="amount">Income Amount</label>
 					<input
+						id="amount"
 						name="amount"
 						type="number"
 						ref={amountRef}
@@ -69,14 +70,15 @@ function AddIncomeModal({ show, onClose }) {
 				</div>
 
 				<div className="input-group capitalize">
-					<label>Description</label>
+					<label htmlFor="description">Description</label>
 					<input
+						id="description"
 						name="description"
 						type="text"
 						ref={descriptionRef}
 						min={0.01}
 						step={0.01}
-						placeholder="Enter income adescription"
+						placeholder="Enter income description"
 						required
 					/>
 				</div>
