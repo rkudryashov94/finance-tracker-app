@@ -7,7 +7,6 @@ import { currencyFormatter } from "@/lib/utils";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 function ViewExpenseModal({ show, onClose, expense }) {
-
 	const { deleteExpenseItem, deleteExpenseCategory } =
 		useContext(financeContext);
 

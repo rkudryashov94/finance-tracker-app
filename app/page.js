@@ -2,6 +2,7 @@
 
 import { useState, useContext, useEffect } from "react";
 import { financeContext } from "@/lib/store/finance-context";
+import { authContext } from "@/lib/store/auth-context";
 
 import { currencyFormatter } from "@/lib/utils";
 
@@ -9,6 +10,7 @@ import ExpenseCategoryItem from "@/components/ExpenseCategoryItem";
 
 import AddNewIncomeModal from "@/components/modals/AddIncomeModal";
 import AddExpensesModal from "@/components/modals/AddExpensesModal";
+import SignIn from "@/components/SignIn";
 
 // Chart.js
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -23,6 +25,7 @@ export default function Home() {
 	const [balance, setBalance] = useState(0);
 
 	const { expenses, income } = useContext(financeContext);
+	const { user } = useContext(authContext);
 
 	useEffect(() => {
 		const incomeTotal = income.reduce((total, i) => {
@@ -36,6 +39,12 @@ export default function Home() {
 		setBalance(newBalance);
 	}, [expenses, income]);
 
+	{
+		/* If user is false (not signed in) return SignIn component */
+	}
+	if (!user) {
+		return <SignIn />;
+	}
 	return (
 		<>
 			{/* Add Income Modal */}
@@ -80,12 +89,7 @@ export default function Home() {
 					<h3 className="text-2xl">My Expenses</h3>
 					<div className="flex flex-col gap-4 mt-6">
 						{expenses.map((expense) => {
-							return (
-								<ExpenseCategoryItem
-									key={expense.id}
-									expense={expense}
-								/>
-							);
+							return <ExpenseCategoryItem key={expense.id} expense={expense} />;
 						})}
 					</div>
 				</section>
